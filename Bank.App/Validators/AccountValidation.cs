@@ -5,14 +5,14 @@ using static LanguageExt.Prelude;
 
 namespace Bank.App.Validators
 {
-  public static partial class AccountValidation
+  public static class AccountValidation
   {
     public static Validation<ErrorMsg, Unit> AccountMustNotExist(
       this TryOptionAsync<AccountState> self) =>
       self
         .Match(
-          Fail: (_) => Fail<ErrorMsg, Unit>("Unable to get account info"),
-          Some: (acc) => Fail<ErrorMsg, Unit>($"Id {acc.AccountId} already exists"),
+          Fail: _ => Fail<ErrorMsg, Unit>("Unable to get account info"),
+          Some: acc => Fail<ErrorMsg, Unit>($"Id {acc.AccountId} already exists"),
           None: () => Success<ErrorMsg, Unit>(unit)
         )
         .Result;
@@ -21,9 +21,9 @@ namespace Bank.App.Validators
       this TryOptionAsync<AccountState> self) =>
       self
         .Match(
-          Fail: (_) => Fail<ErrorMsg, AccountState>("Unable to get account info"),
-          Some: (acc) => Success<ErrorMsg, AccountState>(acc),
-          None: () => Fail<ErrorMsg, AccountState>($"Account does not exist")
+          Fail: _ => Fail<ErrorMsg, AccountState>("Unable to get account info"),
+          Some: Success<ErrorMsg, AccountState>,
+          None: () => Fail<ErrorMsg, AccountState>("Account does not exist")
         )
         .Result;
 

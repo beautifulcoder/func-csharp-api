@@ -40,7 +40,7 @@ namespace Bank.Data.Domain
       id: AccountId,
       currency: Currency,
       status: Status,
-      balance: Balance + amount.Value,
+      balance: Balance + amount ?? default,
       allowedOverdraft: AllowedOverdraft
     );
 

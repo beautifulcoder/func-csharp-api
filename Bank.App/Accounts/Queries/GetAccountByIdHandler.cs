@@ -26,7 +26,7 @@ namespace Bank.App.Accounts.Queries
       IsValidGuid(request.AccountId)
         .Bind<TryOptionAsync<AccountViewModel>>(id =>
           _repo.GetAccountState(id)
-            .Map(acc => AccountViewModel.New(acc))
+            .Map(AccountViewModel.New)
         )
       .AsTask();
   }

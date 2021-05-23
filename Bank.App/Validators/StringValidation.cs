@@ -4,7 +4,7 @@ using static LanguageExt.Prelude;
 
 namespace Bank.App.Validators
 {
-  public static partial class StringValidation
+  public static class StringValidation
   {
     public static Validation<ErrorMsg, Guid> IsValidGuid(string str) =>
       Optional(str)

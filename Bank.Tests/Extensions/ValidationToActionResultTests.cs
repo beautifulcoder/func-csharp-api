@@ -17,18 +17,18 @@ namespace Bank.Tests.Extensions
     [Fact]
     public async Task ToActionResultBadRequest() =>
       Assert.NotNull(
-        (await Fail<ErrorMsg, TryOptionAsync<AccountViewModel>>("fail")
-          .ToActionResult())
+        await Fail<ErrorMsg, TryOptionAsync<AccountViewModel>>("fail")
+          .ToActionResult()
         as BadRequestObjectResult
       );
 
     [Fact]
     public async Task ToActionResultOk() =>
       Assert.NotNull(
-        (await Success<ErrorMsg, TryOptionAsync<AccountViewModel>>(
+        await Success<ErrorMsg, TryOptionAsync<AccountViewModel>>(
             TryOptionAsync(AccountViewModel.New(
               AccountState.New(Guid.NewGuid()))))
-          .ToActionResult())
+          .ToActionResult()
         as OkObjectResult
       );
 
@@ -44,9 +44,9 @@ namespace Bank.Tests.Extensions
     [Fact]
     public async Task ToActionResultServerError() =>
       Assert.NotNull(
-        (await Success<ErrorMsg, TryOptionAsync<AccountViewModel>>(
-            TryOptionAsync<AccountViewModel>(new MongoException("fail")))
-          .ToActionResult())
+        await Success<ErrorMsg, TryOptionAsync<AccountViewModel>>(
+              TryOptionAsync<AccountViewModel>(new MongoException("fail")))
+            .ToActionResult()
         as StatusCodeResult
       );
   }

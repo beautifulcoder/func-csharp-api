@@ -10,10 +10,11 @@ namespace Bank.Tests
     [Fact]
     public void Bind() =>
       Assert.Equal(
-        Optional(5),
+        5,
         Optional(1)
           .Bind<int>(o => o + 2)
           .Bind<int>(o => o + 2)
+          .Bind<int>(o => o)
       );
 
     [Fact]
@@ -30,8 +31,8 @@ namespace Bank.Tests
         None,
         Optional(1)
           .Bind<int>(o => o + 2)
-          .Bind<int>(o => None)
-          .Bind<int>(o => 1)
+          .Bind<int>(_ => None)
+          .Bind<int>(_ => 1)
       );
 
     [Fact]
@@ -71,8 +72,8 @@ namespace Bank.Tests
           from z in d
           select w + x + y + z)
         .Match(
-          Succ: (o) => o,
-          Fail: (e) => None
+          Succ: o => o,
+          Fail: _ => None
         )
       );
 
@@ -93,8 +94,8 @@ namespace Bank.Tests
           from z in d
           select w + x + y + z)
         .Match(
-          Succ: (o) => o,
-          Fail: (e) => None
+          Succ: o => o,
+          Fail: _ => None
         )
       );
   }

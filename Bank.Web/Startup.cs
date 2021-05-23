@@ -43,7 +43,7 @@ namespace Bank.Web
         app.UseDeveloperExceptionPage();
       }
 
-      TryConfig.ErrorLogger = (e) => logger.LogError(e.Message);
+      TryConfig.ErrorLogger = e => logger.LogError(e.Message);
 
       app.UseRouting()
         .UseEndpoints(endpoints =>

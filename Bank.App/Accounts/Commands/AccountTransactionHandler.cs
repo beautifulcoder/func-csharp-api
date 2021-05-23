@@ -38,7 +38,7 @@ namespace Bank.App.Accounts.Commands
       (IsValidGuid(request.AccountId), request.CurrencyMustBeSet())
         .Apply((id, trans) =>
           _repo.GetAccountState(id).AccountMustNotExist()
-            .Map((_) => PersistAccountInfo(
+            .Map(_ => PersistAccountInfo(
               AccountState.New(id), trans.ToCreatedEvent())))
         .Bind(resp => resp)
         .AsTask();

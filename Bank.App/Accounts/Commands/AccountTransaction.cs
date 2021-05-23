@@ -20,19 +20,19 @@ namespace Bank.App.Accounts.Commands
     public CreatedAccount ToCreatedEvent() => new()
     {
       EntityId = new Guid(AccountId),
-      Currency = Currency.Value
+      Currency = Currency ?? default
     };
 
     public DepositedCash ToDepositedEvent() => new()
     {
       EntityId = new Guid(AccountId),
-      Amount = Amount.Value
+      Amount = Amount ?? default
     };
 
     public DebitedFee ToDebitedEvent() => new()
     {
       EntityId = new Guid(AccountId),
-      Amount = Amount.Value
+      Amount = Amount ?? default
     };
   }
 }
