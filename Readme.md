@@ -1,6 +1,6 @@
 # Monads in C#
 
-Implement a flesh and blood real world C# API via Monads.
+Implement a real world C# API via Monads.
 
 To test this functional API with `curl`:
 
