@@ -14,7 +14,6 @@ namespace Bank.Tests
         Optional(1)
           .Bind<int>(o => o + 2)
           .Bind<int>(o => o + 2)
-          .Bind<int>(o => o)
       );
 
     [Fact]
@@ -26,7 +25,7 @@ namespace Bank.Tests
       );
 
     [Fact]
-    public void BindProp() =>
+    public void BindBehavior() =>
       Assert.Equal(
         None,
         Optional(1)
@@ -38,12 +37,12 @@ namespace Bank.Tests
     [Fact]
     public void ApplyValidationFail() =>
       Assert.Equal(
-        "[[fail_1], [fail_2]]",
+        "[fail_1, fail_2]",
         (
-          Success<Seq<string>, Option<int>>(3),
-          Fail<Seq<string>, Option<int>>(Seq1("fail_1")),
-          Success<Seq<string>, Option<int>>(3), Fail<Seq<string>,
-          Option<int>>(Seq1("fail_2"))
+          Success<string, Option<int>>(3),
+          Fail<string, Option<int>>("fail_1"),
+          Success<string, Option<int>>(3),
+          Fail<string, Option<int>>("fail_2")
         )
         .Apply((a, b, c, d) =>
           from w in a
@@ -60,10 +59,10 @@ namespace Bank.Tests
       Assert.Equal(
         None,
         (
-          Success<Seq<string>, Option<int>>(3),
-          Fail<Seq<string>, Option<int>>(Seq1("fail_1")),
-          Success<Seq<string>, Option<int>>(3),
-          Fail<Seq<string>, Option<int>>(Seq1("fail_2"))
+          Success<string, Option<int>>(3),
+          Fail<string, Option<int>>("fail_1"),
+          Success<string, Option<int>>(3),
+          Fail<string, Option<int>>("fail_2")
         )
         .Apply((a, b, c, d) =>
           from w in a
@@ -80,12 +79,12 @@ namespace Bank.Tests
     [Fact]
     public void ApplyValidationSome() =>
       Assert.Equal(
-        Optional(8),
+        8,
         (
-          Success<Seq<string>, Option<int>>(3),
-          Success<Seq<string>, Option<int>>(1),
-          Success<Seq<string>, Option<int>>(3),
-          Success<Seq<string>, Option<int>>(1)
+          Success<string, Option<int>>(3),
+          Success<string, Option<int>>(1),
+          Success<string, Option<int>>(3),
+          Success<string, Option<int>>(1)
         )
         .Apply((a, b, c, d) =>
           from w in a
